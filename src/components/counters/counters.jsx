@@ -1,5 +1,5 @@
 import React from 'react';
-import Controls from 'components/controls/controls';
+// import Controls from 'components/controls/controls';
 import css from 'components/counters/counter.module.css';
 
 class Counter extends React.Component {
