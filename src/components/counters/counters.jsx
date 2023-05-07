@@ -3,18 +3,69 @@ import React from 'react';
 import css from 'components/counters/counter.module.css';
 
 class Counter extends React.Component {
+  static defaultProps = {
+    total: 0,
+  };
+  state = {
+    good: 0,
+    neutral: 0,
+    bad: 0,
+  };
+
+  goodIncrement = () => {
+    this.setState(prevState => ({
+      good: prevState.good + 1,
+    }));
+  };
+
+  neutralIncrement = () => {
+    this.setState(prevState => ({
+      neutral: prevState.neutral + 1,
+    }));
+  };
+
+  badIncrement = () => {
+    this.setState(prevState => {
+      return {
+        bad: prevState.bad + 1,
+      };
+    });
+  };
+
+  countTotalFeedback = () => {
+    const { good, neutral, bad } = this.state;
+    return good + neutral + bad;
+  };
+
+  countPositiveFeedbackPercentage = () => {
+    const { good } = this.state;
+    return Math.round((good * 100) / this.countTotalFeedback());
+  };
+
   render() {
     return (
       <div className={css.counter}>
         <h2>Please leave feedback</h2>
         <div className={css.feedback}>
-          <button className={css.button} type="button">
+          <button
+            className={css.button}
+            type="button"
+            onClick={this.goodIncrement}
+          >
             Good
           </button>
-          <button className={css.button} type="button">
+          <button
+            className={css.button}
+            type="button"
+            onClick={this.neutralIncrement}
+          >
             Neutral
           </button>
-          <button className={css.button} type="button">
+          <button
+            className={css.button}
+            type="button"
+            onClick={this.badIncrement}
+          >
             Bad
           </button>
         </div>
@@ -23,15 +74,28 @@ class Counter extends React.Component {
           <h3 className={css.statisticsTitle}>Statistics</h3>
           <ul className={css.statisticsList}>
             <li className={css.statisticsItems}>
-              <span>Good:</span>
+              <span>Good: {this.state.good}</span>
             </li>
 
             <li className={css.statisticsItems}>
-              <span>Neutral:</span>
+              <span>Neutral: {this.state.neutral}</span>
             </li>
 
             <li className={css.statisticsItems}>
-              <span>Bad:</span>
+              <span>Bad: {this.state.bad}</span>
+            </li>
+
+            <li className={css.statisticsItems}>
+              <span>
+                Total:
+                {this.countTotalFeedback()}
+              </span>
+            </li>
+
+            <li className={css.statisticsItems}>
+              <span>
+                Positive feedback: {this.countPositiveFeedbackPercentage()}%
+              </span>
             </li>
           </ul>
         </div>
