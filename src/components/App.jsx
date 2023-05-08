@@ -61,14 +61,14 @@ class App extends Component {
 
     return (
       <Container>
-        <Section title="Please leave feedback">
+        <Section title={'Please leave feedback'}>
           <FeedbackOptions
             options={optionsKeys}
             onLeaveFeedback={this.handleIncrementClick}
           />
         </Section>
 
-        <Section title="Statistics">
+        <Section title={'Statistics'}>
           {total ? (
             <Statistics
               good={this.state.good}
